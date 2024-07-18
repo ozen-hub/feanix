@@ -27,6 +27,6 @@ public class Payment {
     @Column(name = "amount", nullable = false)
     private double amount;
     @OneToOne
-    @Column(nullable = false,unique = true, length = 80, name = "customer_order_id")
+    @JoinColumn(nullable = false,unique = true, name = "customer_order_id")
     private CustomerOrder customerOrder;
 }
