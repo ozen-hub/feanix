@@ -1,6 +1,7 @@
 package com.devstack.ecom.feanix.service.impl;
 
 import com.devstack.ecom.feanix.dto.request.RequestProductDto;
+import com.devstack.ecom.feanix.dto.response.ResponseProductDto;
 import com.devstack.ecom.feanix.entity.Product;
 import com.devstack.ecom.feanix.repository.ProductRepository;
 import com.devstack.ecom.feanix.service.ProductService;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -21,6 +23,15 @@ public class ProductServiceImpl implements ProductService {
         repository.save(toProduct(requestProductDto));
     }
 
+    @Override
+    public ResponseProductDto findById(String productId) {
+        Optional<Product> selectedProduct = repository.findById(productId);
+        if (selectedProduct.isEmpty()){
+            return null;
+        }
+        return toResponseProductDto(selectedProduct.get());
+    }
+
     private Product toProduct(RequestProductDto dto){
         if (dto==null)return null;
 
@@ -31,6 +42,17 @@ public class ProductServiceImpl implements ProductService {
                 .orderDetails(null)
                 .qtyOnHand(dto.getQtyOnHand())
                 .unitPrice(dto.getUnitPrice())
+                .build();
+    }
+    private ResponseProductDto toResponseProductDto(Product p){
+        if (p==null)return null;
+
+        return ResponseProductDto.builder()
+                .productId(p.getProductId())
+                .description(p.getDescription())
+                .resourceUrl("")
+                .qtyOnHand(p.getQtyOnHand())
+                .unitPrice(p.getUnitPrice())
                 .build();
     }
 }
