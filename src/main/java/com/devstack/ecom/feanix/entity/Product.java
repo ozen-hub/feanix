@@ -26,7 +26,6 @@ public class Product {
     private int qtyOnHand;
     @Embedded
     private FileResource FileResource;
-
     @OneToMany(mappedBy = "product")
     private Set<CustomerOrderDetails> orderDetails = new HashSet<>();
 }
