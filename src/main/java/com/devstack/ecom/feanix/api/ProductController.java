@@ -3,6 +3,8 @@ package com.devstack.ecom.feanix.api;
 import com.devstack.ecom.feanix.dto.request.RequestProductDto;
 import com.devstack.ecom.feanix.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
     private final ProductService productService;
 
-    public String save(RequestProductDto dto) {
+    @PostMapping
+    public String save(@RequestBody RequestProductDto dto) { // post -> body
         productService.create(dto);
         return "Saved";
     }
