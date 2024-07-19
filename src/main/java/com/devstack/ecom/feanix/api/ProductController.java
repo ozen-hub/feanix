@@ -1,5 +1,6 @@
 package com.devstack.ecom.feanix.api;
 
+import com.devstack.ecom.feanix.dto.paginate.ResponseProductPaginateDto;
 import com.devstack.ecom.feanix.dto.request.RequestProductDto;
 import com.devstack.ecom.feanix.dto.response.ResponseProductDto;
 import com.devstack.ecom.feanix.service.ProductService;
@@ -34,4 +35,14 @@ public class ProductController {
         productService.delete(productId);
         return "Deleted";
     }
+
+    @GetMapping("/search")
+    public ResponseProductPaginateDto search(
+            @RequestParam String searchText,
+            @RequestParam int page,
+            @RequestParam int size
+    ) { // get-> path variable, request params
+        return productService.search(searchText, page, size);
+    }
+
 }
