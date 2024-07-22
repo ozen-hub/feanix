@@ -20,7 +20,7 @@ public class AppWideExceptionHandler {
     }
 
     @ExceptionHandler(DuplicateEntryException.class)
-    public ResponseEntity<StandardResponseDto> handleDuplicateEntryExceptionException(DuplicateEntryException e){
+    public ResponseEntity<StandardResponseDto> handleDuplicateEntryException(DuplicateEntryException e){
         return new ResponseEntity<>(
                 new StandardResponseDto(e.getMessage(),409,e),
                 HttpStatus.CONFLICT

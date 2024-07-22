@@ -7,6 +7,7 @@ import com.devstack.ecom.feanix.entity.Product;
 import com.devstack.ecom.feanix.exception.EntryNotFoundException;
 import com.devstack.ecom.feanix.repository.ProductRepository;
 import com.devstack.ecom.feanix.service.ProductService;
+import com.devstack.ecom.feanix.util.IdGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository repository;
+    private final IdGenerator idGenerator;
 
     @Override
     public void create(RequestProductDto requestProductDto) {
@@ -71,7 +73,7 @@ public class ProductServiceImpl implements ProductService {
         if (dto==null)return null;
 
         return Product.builder()
-                .productId(UUID.randomUUID().toString())
+                .productId(idGenerator.generate())
                 .description(dto.getDescription())
                 .FileResource(null)
                 .orderDetails(null)
