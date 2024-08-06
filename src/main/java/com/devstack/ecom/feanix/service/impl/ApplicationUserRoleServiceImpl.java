@@ -28,7 +28,7 @@ public class ApplicationUserRoleServiceImpl implements ApplicationUserRoleServic
 
             UserRole user = UserRole.builder()
                     .roleId(UUID.randomUUID().toString())
-                    .roleName("user")
+                    .roleName("USER")
                     .build();
 
             userRoleRepo.saveAll(List.of(admin,user));
