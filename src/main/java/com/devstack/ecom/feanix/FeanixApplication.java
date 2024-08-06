@@ -1,5 +1,7 @@
 package com.devstack.ecom.feanix;
 
+import com.devstack.ecom.feanix.service.ApplicationUserRoleService;
+import com.devstack.ecom.feanix.service.ApplicationUserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,13 +9,24 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class FeanixApplication implements CommandLineRunner {
 
-	public static void main(String[] args) {
-		SpringApplication.run(FeanixApplication.class, args);
-	}
+    private final ApplicationUserRoleService userRoleService;
+    private final ApplicationUserService applicationUserService;
 
-	@Override
-	public void run(String... args) throws Exception {
-		// save all roles if not exists
-		// save user (ADMIN)-> if not exists
-	}
+    public FeanixApplication(ApplicationUserRoleService userRoleService, ApplicationUserService applicationUserService) {
+        this.userRoleService = userRoleService;
+        this.applicationUserService = applicationUserService;
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(FeanixApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        // save all roles if not exists
+        userRoleService.initializeRoles();
+
+        // save user (ADMIN)-> if not exists
+        applicationUserService.initializeAdmin();
+    }
 }
